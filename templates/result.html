@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail Pesanan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .detail-header-table td:nth-child(1) { width: 40%; font-weight: bold; }
+        .detail-header-table td:nth-child(2) { width: 60%; }
+        .order-summary-table th, .order-summary-table td { text-align: right; }
+        .order-summary-table th:nth-child(1), .order-summary-table td:nth-child(1) { text-align: left; }
+        .qrcode { 
+            margin: 20px auto; 
+            border: 4px solid #ffcc80; 
+            width: fit-content; 
+            padding: 10px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your order is being processed.</h1>
+        <h2>Thank you for your order, {{ detail_header.Nama }}!</h2>
+
+        <div style="background: #fff5e4; padding: 15px; border-radius: 10px; margin-bottom: 30px;">
+            <h3>Payment Status:</h3>
+            
+            {% if metode_pembayaran == 'di_tempat' %}
+                <p style="font-size: 1.1em; font-weight: 600; color: #f57c00;">
+                    Pay when your order arrives at your table.
+                </p>
+                <p>A waiter will give you a QR Code when your order is served.</p>
+                <p style="margin-top: 10px; font-size: 0.9em; color: #555;">
+                    Scan the QR Code with your mobile banking app or e-wallet.
+                </p>
+                
+            {% elif metode_pembayaran == 'di_kasir' %}
+                <p style="font-size: 1.2em; font-weight: bold; color: #4b2e05;">
+                    Please pay at the counter with the exact amount.
+                </p>
+                <p>Please show the order details below at the cashier.</p>
+            {% endif %}
+        </div>
+        
+        {% if daftar_pesanan %}
+        
+        <h3>Customer Information</h3>
+        <table class="detail-header-table">
+            <tr><td>Customer name</td><td>{{ detail_header.Nama }}</td></tr>
+            <tr><td>Table number</td><td>{{ detail_header['Nomor Meja'] }}</td></tr>
+            <tr><td>Notes</td><td>{{ detail_header.Catatan }}</td></tr>
+        </table>
+
+        <h3>Order List</h3>
+        <table class="order-summary-table">
+            <tr>
+                <th>Menu</th>
+                <th>Unit Price</th>
+                <th>Total Amount</th>
+                <th>Subtotal</th>
+            </tr>
+            {% for item in daftar_pesanan %}
+            <tr>
+                <td>{{ item.nama }}</td>
+                <td>Rp{{ "{:,.0f}".format(item.harga_satuan) }}</td>
+                <td>{{ item.jumlah }}</td>
+                <td>Rp{{ "{:,.0f}".format(item.subtotal) }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        
+        <div style="text-align: right; margin-top: 20px;">
+            <p style="font-size: 1.1em; margin: 5px 0;">
+                Subtotal: Rp{{ "{:,.0f}".format(total_harga_bruto) }}
+            </p>
+            <p style="font-size: 1.1em; margin: 5px 0; color: #f57c00; font-weight: 600;">
+                Tax (10%): Rp{{ "{:,.0f}".format(nilai_pajak) }}
+            </p>
+        </div>
+        
+        <h2 style="text-align: right; margin-top: 10px; border-top: 1px solid #ffcc80; padding-top: 10px;">
+            Total Payment: Rp{{ "{:,.0f}".format(total_pembayaran_final) }}
+        </h2>
+
+        {% else %}
+        <p>An error occured while processing the order.</p>
+        {% endif %}
+
+        <a href="{{ url_for('index') }}" class="btn">Back to home</a>
+        <a href="{{ url_for('menu') }}" class="btn-back">Order again</a>
+    </div>
+
+  <footer>© 2025 C-Coffee!</footer>
+</body>
+</html>

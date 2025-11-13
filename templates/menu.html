@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Choose The Drink</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    /* Gaya tambahan untuk header kategori */
+    .category-title {
+    color: #4b2e05;
+    margin-top: 30px;
+    margin-bottom: 5px; 
+    text-align: left;
+    font-size: 1.8em;
+    font-weight: 600;
+    border-bottom: 2px solid #ffcc80;
+    padding-bottom: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    }
+    table {
+        margin-top: 5px !important; 
+        margin-bottom: 30px !important; 
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Select the drink you'd like to order</h1>
+
+    <form action="{{ url_for('bayar') }}" method="POST">
+        
+                <div style="margin-bottom: 20px; padding: 15px; border: 1px solid #ffcc80; border-radius: 12px; background: #fff8ec;">
+            <h3 style="color: #4b2e05;">Order data</h3>
+            <label for="nama_pelanggan" style="display:block; text-align: left; margin-top: 10px;">Name</label>
+            <input type="text" id="nama_pelanggan" name="nama_pelanggan" placeholder="Enter your name" required style="width: 95%;">
+
+            <label for="nomor_meja" style="display:block; text-align: left; margin-top: 10px;">Table number</label>
+            <input type="number" id="nomor_meja" name="nomor_meja" placeholder="Ex: 12" min="1" required class="align-left" style="width: 95%;">
+
+            <label for="catatan" style="display:block; text-align: left; margin-top: 10px;">Notes</label>
+            <textarea id="catatan" name="catatan" rows="2" placeholder="(Ex: Less ice, please)" style="width: 95%;"></textarea>
+        </div>
+
+        <div class="category-title">☕ COFFEE</div>
+        <table>
+            <tr>
+                <th>Menu</th>
+                <th>Price</th>
+                <th>Total Amount</th>
+            </tr>
+            {% for item in coffee_menu %}
+            <tr>
+                <td>{{ item.nama }}</td>
+                <td>Rp{{ "{:,.0f}".format(item.harga) }}</td>
+                <td>
+                    <input type="number" name="jumlah_{{ item.id }}" placeholder="0" min="0" max="99">
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        
+        <div class="category-title">🍵 NON-COFFEE</div>
+        <table>
+            <tr>
+                <th>Menu</th>
+                <th>Price</th>
+                <th>Total AMount</th>
+            </tr>
+            {% for item in non_coffee_menu %}
+            <tr>
+                <td>{{ item.nama }}</td>
+                <td>Rp{{ "{:,.0f}".format(item.harga) }}</td>
+                <td>
+                    <input type="number" name="jumlah_{{ item.id }}" placeholder="0" min="0" max="99">
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <button type="submit" class="btn" style="margin-top: 20px;">Order now</button>
+    </form>
+    
+    <a href="{{ url_for('index') }}" class="btn-back">Back to home</a>
+  </div>
+  <footer>© 2025 C-Coffe!</footer>
+</body>
+</html>

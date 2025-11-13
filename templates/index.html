@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to C-Coffee!</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh;
+    }
+
+    .container h1 {
+    margin-top: 10px;
+    font-size: 3.5em; 
+    }
+  </style>
+</head>
+<body>
+      <div class="container" style="padding: 60px 80px; max-width: 600px; width: auto;">
+    <h1>Welcome to C-Coffee!</h1>
+    
+        <p style="color: #795548; font-size: 1.2em; margin-bottom: 30px; font-style: italic;">
+      Your daily dose of happiness, brewed fresh.
+    </p>
+    <hr style="width: 50%; border-top: 1px solid #ffcc80; margin: 30px auto;">
+    <p style="font-size: 1.1em; color: #333; margin-top: 30px;">Ready to order?</p>
+
+    <a href="{{ url_for('menu') }}" class="btn" style="padding: 18px 50px; font-size: 1.3em;">
+      See Menu
+    </a>
+  </div>
+  
+  <footer>© 2025 C-Coffee!</footer>
+</body>
+</html>

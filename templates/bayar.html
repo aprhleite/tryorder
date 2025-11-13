@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Pilih Pembayaran</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    /* CSS internal untuk menata halaman pembayaran */
+    .payment-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    }
+    .payment-option {
+    margin: 20px 0;
+    }
+
+    .payment-option button[type="submit"], 
+    .payment-option .btn-back { 
+        display: block; 
+        width: 30%; 
+        margin: 15px auto; 
+        padding: 15px 25px;
+        border: none;
+        border-radius: 30px; 
+        font-weight: 600;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 16px; 
+    }
+
+    .payment-option button[name="metode"][value="di_tempat"] {
+        background: linear-gradient(135deg, #ff9800, #f57c00);
+        box-shadow: 0 4px 10px rgba(255, 152, 0, 0.4);
+    }
+
+    .payment-option button[name="metode"][value="di_kasir"] {
+        background: linear-gradient(135deg, #6d4c41, #4e342e); 
+        box-shadow: 0 4px 10px rgba(77, 54, 43, 0.4);
+    }
+
+    .payment-option .btn-back {
+        background: linear-gradient(135deg, #6d4c41, #4e342e);
+        box-shadow: 0 4px 10px rgba(77, 54, 43, 0.4);
+        margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="payment-container">
+    <h1>Select Payment Method</h1>
+    
+    <p style="font-size: 1.0em; color: #555; margin-bottom: 5px;">
+        Total Order: Rp{{ "{:,.0f}".format(total_harga_bruto) }}
+    </p>
+    <p style="font-size: 1.0em; color: #f57c00; font-weight: 600; margin-top: 0;">
+        Tax (10%): Rp{{ "{:,.0f}".format(nilai_pajak) }}
+    </p>
+    <p style="font-size: 1.2em; font-weight: bold; color: #4b2e05;">
+        Total Payment: Rp{{ "{:,.0f}".format(total_pembayaran_final) }}
+    </p>
+        <hr style="border-top: 1px solid #ffcc80; margin: 25px 0;">
+
+    <form action="{{ url_for('result') }}" method="POST">
+      
+            {% for item in daftar_pesanan %}
+        <input type="hidden" name="item_nama" value="{{ item.nama }}">
+        <input type="hidden" name="item_jumlah" value="{{ item.jumlah }}">
+        <input type="hidden" name="item_harga_satuan" value="{{ item.harga_satuan }}">
+      {% endfor %}
+
+            <input type="hidden" name="total_pembayaran_final" value="{{ total_pembayaran_final }}">
+      <input type="hidden" name="nilai_pajak" value="{{ nilai_pajak }}">
+      <input type="hidden" name="total_harga_bruto" value="{{ total_harga_bruto }}">
+
+      <input type="hidden" name="nama_pelanggan" value="{{ detail_header.Nama }}">
+      <input type="hidden" name="nomor_meja" value="{{ detail_header['Nomor Meja'] }}">
+      <input type="hidden" name="catatan" value="{{ detail_header.Catatan }}">
+
+            <div class="payment-option">
+        <button type="submit" name="metode" value="di_tempat">
+            Pay on Site via QR
+        </button>
+      </div>
+      
+      <div class="payment-option">
+        <button type="submit" name="metode" value="di_kasir">
+            Pay at Cashier (Cash)
+        </button>
+      </div>
+    </form>
+    
+        <div class="payment-option">
+        <a href="{{ url_for('menu') }}" class="btn-back">← Change Order</a>
+    </div>
+  </div>
+
+  <footer>© 2025 C-Coffee!</footer>
+</body>
+</html>
