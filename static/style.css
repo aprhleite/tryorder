@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #fff5e4, #ffe3b3);
+  color: #333;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: #4b2e05;
+  margin-top: 40px;
+  font-weight: 600;
+}
+
+h2 {
+  color: #8b5e00;
+  margin-top: 20px;
+}
+
+table {
+  margin: 30px auto;
+  border-collapse: collapse;
+  width: 80%;
+  background: #fff8ec;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+th {
+  background-color: #ffcc80;
+  color: #4b2e05;
+  padding: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid #f0d9b5;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+input[type="number"] {
+  width: 60px;
+  padding: 5px;
+  border: 1px solid #d4a373;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.btn, .btn-back {
+  display: inline-block;
+  padding: 12px 25px;
+  margin: 20px 10px;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn {
+  background: linear-gradient(135deg, #ff9800, #f57c00);
+  box-shadow: 0 4px 10px rgba(255, 152, 0, 0.4);
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(255, 152, 0, 0.5);
+}
+
+.btn-back {
+  background: linear-gradient(135deg, #6d4c41, #4e342e);
+  box-shadow: 0 4px 10px rgba(77, 54, 43, 0.4);
+}
+
+.btn-back:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(77, 54, 43, 0.5);
+}
+
+footer {
+  margin-top: 50px;
+  color: #795548;
+  font-size: 14px;
+}
+
+.container {
+  background-color: rgba(255, 255, 255, 0.7);
+  margin: 30px auto;
+  padding: 20px;
+  border-radius: 20px;
+  width: 80%;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+input[type="number"]::placeholder {
+    color: #a0a0a0;
+    opacity: 1;
+}
+
+.align-left {
+    text-align: left !important;
+}
